@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Signup - Ali's Cookies</title>
-    <link rel="stylesheet" href="styles.css"> 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        
+        .invalid {
+            border-color: #FF0000;
+        }
+
+       
+        .error-message {
+            color: #FF0000;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    
+
     <header>
         <img src="logo-placeholder.png" alt="Company Logo" style="width: 150px; vertical-align: middle;">
         <h1 style="display: inline-block; margin-left: 20px;">Ali's Cookies</h1>
@@ -21,29 +34,33 @@
             <li><a href="cart.html">Shopping Cart</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li> 
+            <li><a href="signup.html">Sign Up</a></li>
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
 
     <main class="container mt-4">
         <h2>User Signup</h2>
-        <form>
+        <form id="signupForm">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                <div class="error-message" id="usernameError">Username is required.</div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                <div class="error-message" id="emailError">Enter a valid email (e.g., joe@test.com).</div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                <div class="error-message" id="passwordError">Password is required.</div>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                <div class="error-message" id="confirmPasswordError">Passwords must match.</div>
             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
@@ -58,8 +75,69 @@
         </ul>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+
+            
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            
+            clearErrors();
+
+            let isValid = true;
+
+            
+            if (username.value.trim() === '') {
+                showError(username, 'usernameError');
+                isValid = false;
+            }
+
+            
+            const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (!emailPattern.test(email.value.trim())) {
+                showError(email, 'emailError');
+                isValid = false;
+            }
+
+            
+            if (password.value.trim() === '') {
+                showError(password, 'passwordError');
+                isValid = false;
+            }
+
+            
+            if (password.value !== confirmPassword.value) {
+                showError(confirmPassword, 'confirmPasswordError');
+                isValid = false;
+            }
+
+            
+            if (isValid) {
+                alert('Form submitted successfully!');
+                
+            }
+        });
+
+        function showError(input, errorId) {
+            input.classList.add('invalid');
+            document.getElementById(errorId).style.display = 'block';
+        }
+
+        function clearErrors() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => input.classList.remove('invalid'));
+
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => msg.style.display = 'none');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
