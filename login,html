@@ -17,13 +17,13 @@
             display: none;
         }
 
-        /* New styles for the JSON display */
+        
         #jsonDisplay {
             margin-top: 20px;
             padding: 15px;
             border: 1px solid #ccc;
             background-color: #f9f9f9;
-            white-space: pre-wrap; /* Preserve whitespace for better formatting */
+            white-space: pre-wrap; 
         }
     </style>
 </head>
@@ -41,7 +41,7 @@
             <li><a href="cart.html">Shopping Cart</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="signup.html">Sign Up</a></li>
-            <li><a href="login.html">Login</a></li> <!-- New Login link -->
+            <li><a href="login.html">Login</a></li> 
             <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
@@ -62,7 +62,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
 
-        <!-- Section to display the JSON data -->
+       
         <div id="jsonDisplay" style="display:none;"></div>
     </main>
 
@@ -97,13 +97,13 @@
             }
 
             if (isValid) {
-                // Create a JSON object with the values
+                
                 const userData = {
                     username: username,
                     password: password
                 };
 
-                // Display the JSON object
+                
                 document.getElementById('jsonDisplay').textContent = JSON.stringify(userData, null, 2);
                 document.getElementById('jsonDisplay').style.display = 'block';
             }
